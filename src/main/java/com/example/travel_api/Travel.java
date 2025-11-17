@@ -19,7 +19,8 @@ class Travel {
     private String destinationName;
     private LocalDate date;
     private String location;
-    private String score;
+    private Double score;  // média atual
+    private Integer ratingCount;  // qtd de avaliações recebidas
     private Boolean hotels;
 
     @ElementCollection
@@ -52,7 +53,7 @@ class Travel {
         return this.location;
     }
 
-    public String getScore() {
+    public Double getScore() {
         return this.score;
     }
 
@@ -81,7 +82,7 @@ class Travel {
         this.location = location;
     }
 
-    public void setScore (String score) {
+    public void setScore (Double score) {
         this.score = score;
     }
 
@@ -92,6 +93,26 @@ class Travel {
     public void setTouristActivities (List<String> touristActivities) {
         this.touristActivities = touristActivities;
     }
+
+    public void registerRating(int rating) {
+
+        if (rating < 1 || rating > 10) {
+            throw new IllegalArgumentException("A nota deve ser entre 1 e 10");
+        }
+
+        if (this.score == null || this.ratingCount == null || this.ratingCount == 0) {
+            // define como primeira avaliação
+            this.score = (double) rating;
+            this.ratingCount = 1;
+        } else {
+            // média ponderada: (média_atual * qtd + nova_nota) / (qtd + 1)
+            double total = this.score * this.ratingCount + rating;
+            this.ratingCount +=1;
+            this.score = total / this.ratingCount;
+        }
+    }
+
+
 
     @Override
     public int hashCode() {
@@ -137,10 +158,7 @@ class Travel {
                 ", destinationName='" + this.destinationName + '\'' +
                 ", date=" + this.date +
                 '}';
-}
-
-    
-
+    }
 
 }
 
@@ -154,7 +172,7 @@ class Travel {
 
 
 
-// qestions:
+// questions:
 // 1. my Travel constructor needs to recieve all the params defined in the atributes?
 // for example: there is one endypoint for voting a note for  the destiny,
 // but i dont want to send a note if i'm just booking the trip for the first time
