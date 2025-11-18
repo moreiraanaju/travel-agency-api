@@ -1,7 +1,7 @@
 package com.example.travel_api;
 
-class TravelNotFoundException extends RuntimeException {
-    TravelNotFoundException(Long id) {
+public class TravelNotFoundException extends RuntimeException {
+    public TravelNotFoundException(Long id) {
         super("Não foi possível encontrar a viagem" + id);
     }
 }
