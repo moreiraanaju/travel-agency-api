@@ -10,7 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
-class Travel {
+public class Travel {
 
     @Id  //identifies the field as the primary key
     @GeneratedValue // this tells JPA to auto-generate the ID
