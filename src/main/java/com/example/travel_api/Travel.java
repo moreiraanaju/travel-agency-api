@@ -4,12 +4,10 @@ package com.example.travel_api;
 import java.time.LocalDate;
 import java.util.List;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "travels")
 public class Travel {
 
     @Id  //identifies the field as the primary key
@@ -75,7 +73,7 @@ public class Travel {
     }
 
     public void setDate (LocalDate date) {
-        this.date = date;
+        this.date = date; 
     }
 
     public void setLocation (String location) {
